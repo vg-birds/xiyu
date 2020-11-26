@@ -1,8 +1,6 @@
 package main
 
-import (
-	db "test/database"
-)
+import db "test/database"
 
 func main() {
 	defer db.SqlDB.Close()

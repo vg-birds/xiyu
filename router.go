@@ -2,22 +2,32 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	."test/apis"
+	"net/http"
+	. "test/apis"
 )
 
 func initRouter() *gin.Engine{
 	router := gin.Default()
 
-	router.GET("/", IndexApi)
+	router.LoadHTMLGlob("tpl/html/*")
 
-	router.GET("/person/:id", GetPersonApi)
+	router.StaticFS("/staticfile", http.Dir("./static/res/static"))
+	router.StaticFS("/layui", http.Dir("./static/res/layui"))
+	router.StaticFS("/statichtml", http.Dir("./tpl/html"))
 
-	router.POST("/person", AddPersonApi)
+	router.GET("/blogs", GetBlogs)
 
-	router.GET("/persons", GetPersonsApi)
+	//router.GET("/", IndexApi)
+	//
+	//router.GET("/person/:id", GetPersonApi)
+	//
+	//router.POST ("/person", AddPersonApi)
+	//
+	//router.GET("/persons", GetPersonsApi)
+	//
+	//router.PUT("/person/:id", ModPersonApi)
+	//
+	//router.DELETE("/person/:id", DelPersonApi)
 
-	router.PUT("/person/:id", ModPersonApi)
-
-	router.DELETE("/person/:id", DelPersonApi)
 	return router
 }
